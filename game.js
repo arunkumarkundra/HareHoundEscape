@@ -47,12 +47,12 @@ class HareAndHoundsGame {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
 
-                if (row === this.harePosition.row && col === this.harePosition.col) {
-                    cell.textContent = '🐇';
-                    cell.classList.add('hare');
-                } else if (this.isHoundAt(row, col)) {
+                if (this.isHoundAt(row, col)) {
                     cell.textContent = '🐶';
                     cell.classList.add('hound');
+                } else if (row === this.harePosition.row && col === this.harePosition.col) {
+                    cell.textContent = '🐇';
+                    cell.classList.add('hare');
                 }
 
                 gameBoard.appendChild(cell);
@@ -87,6 +87,7 @@ class HareAndHoundsGame {
 
             // Check if a hound caught the hare after move
             if (this.isHoundAt(this.harePosition.row, this.harePosition.col)) {
+                this.renderBoard(); // Ensure hound is shown in final position
                 this.endGame(false, "caught");
                 return;
             }
@@ -244,6 +245,7 @@ class HareAndHoundsGame {
 
     checkWinCondition() {
         if (this.harePosition.row === 0) {
+            this.renderBoard(); // Show hare in final position
             this.endGame(true);
         }
     }
