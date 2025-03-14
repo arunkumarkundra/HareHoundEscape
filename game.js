@@ -126,6 +126,8 @@ class HareAndHoundsGame {
 
                 // Check if hound caught the hare after moving
                 if (hound.row === this.harePosition.row && hound.col === this.harePosition.col) {
+                    this.harePosition = null; // Remove the hare from the board
+                    this.renderBoard(); // Ensure the board updates before showing message
                     this.endGame(false, "caught");
                     return;
                 }
@@ -244,7 +246,9 @@ class HareAndHoundsGame {
 
     checkWinCondition() {
         if (this.harePosition.row === 0) {
-            this.endGame(true);
+    //        this.endGame(true);
+              this.renderBoard(); // Ensure the hare is shown at the top
+              setTimeout(() => this.endGame(true), 100); // Slight delay for better UX
         }
     }
 
